@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import Close from '@/static/icons/close.svg'
 import Empty from '@/components/Empty'
 import DragHandler from '@/static/icons/drag-handler.svg'
@@ -6,11 +6,7 @@ import classnames from 'classnames'
 import Delete from '@/static/icons/delete.svg'
 import FlagSelector from '@/pages/Calender/components/FlagSelector'
 import { LogItemAttributes } from '@/models'
-import {
-  queryAllLogItemByDate,
-  createLogItem,
-  deleteById
-} from '@/services/daily'
+import { deleteById } from '@/services/daily'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import styles from './index.module.less'
 import { useDispatch, useSelector } from 'dva'
@@ -18,29 +14,12 @@ import { useDispatch, useSelector } from 'dva'
 export default () => {
   const [isDragging, setIsDragging] = useState(false)
   const dispatch = useDispatch()
-  const { viewingDate } = useSelector((state) => state.calender)
+  const { viewingDate, currentMonthLogsMap } = useSelector(
+    (state) => state.calender
+  )
+  const logs = currentMonthLogsMap[viewingDate] || []
   const [value, setValue] = useState('')
   const [flag, setFlag] = useState(0)
-  const [loading, setLoading] = useState(false)
-  const [logs, setLogs] = useState<LogItemAttributes[]>([])
-
-  async function doRequest() {
-    setLoading(true)
-    const rows = await queryAllLogItemByDate(viewingDate)
-    dispatch({
-      type: 'calender/refreshDate',
-      payload: {
-        date: viewingDate,
-        rows
-      }
-    })
-    setLogs(rows)
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    doRequest()
-  }, [viewingDate])
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setValue(event!.target.value)
@@ -49,27 +28,29 @@ export default () => {
   async function handleCreate() {
     const content = value.trim()
     if (content) {
-      await createLogItem({
-        content: value,
-        date: viewingDate,
-        flag
+      dispatch({
+        type: 'calender/createDate',
+        payload: {
+          content: value,
+          date: viewingDate,
+          flag
+        }
       })
-      doRequest()
     }
     setValue('')
   }
 
-  const reorder = function <T>(
-    list: T[],
-    startIndex: number,
-    endIndex: number
-  ): T[] {
-    const result = Array.from(list)
-    const [removed] = result.splice(startIndex, 1)
-    result.splice(endIndex, 0, removed)
+  // const reorder = function <T>(
+  //   list: T[],
+  //   startIndex: number,
+  //   endIndex: number
+  // ): T[] {
+  //   const result = Array.from(list)
+  //   const [removed] = result.splice(startIndex, 1)
+  //   result.splice(endIndex, 0, removed)
 
-    return result
-  }
+  //   return result
+  // }
 
   function handleDragEnd(result: any) {
     setIsDragging(false)
@@ -86,15 +67,21 @@ export default () => {
       return
     }
 
-    const newLogs = reorder(logs, result.source.index, result.destination.index)
+    // const newLogs = reorder(logs, result.source.index, result.destination.index)
 
-    setLogs(newLogs)
+    // setLogs(newLogs)
   }
 
   function handleDelete(index: number) {
-    const [item] = logs.splice(index, 1)
-    deleteById(item.id)
-    doRequest()
+    const item = logs[index]
+
+    dispatch({
+      type: 'calender/deleteDateById',
+      payload: {
+        id: item.id,
+        date: item.date
+      }
+    })
     return
   }
 
@@ -115,7 +102,7 @@ export default () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {!loading && logs.length === 0 ? (
+              {logs.length === 0 ? (
                 <Empty />
               ) : (
                 <ul className={styles.logList}>
@@ -185,7 +172,7 @@ export default () => {
           </Droppable>
           <button
             className={styles.closeButton}
-            onClick={() => dispatch({ type: 'calender/toggleViewingDetail' })}
+            onClick={() => dispatch({ type: 'calender/closeViewingDetail' })}
           >
             <Close />
           </button>

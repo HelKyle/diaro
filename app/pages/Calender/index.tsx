@@ -39,10 +39,13 @@ export default function Calender(): JSX.Element {
         dispatch({ type: 'calender/nextMonth' })
       } else if (event.key === 'ArrowLeft') {
         dispatch({ type: 'calender/prevMonth' })
+      } else if (event.key === 'Escape') {
+        dispatch({ type: 'calender/closeViewingDetail' })
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => {
+      dispatch({ type: 'calender/closeViewingDetail' })
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [])

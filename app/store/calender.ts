@@ -3,6 +3,11 @@ import { Action } from 'redux'
 import moment from 'moment'
 import { groupBy } from 'lodash'
 import { LogItemAttributes } from '@/models'
+import {
+  queryAllLogItemByDate,
+  createLogItem,
+  deleteById
+} from '@/services/daily'
 
 interface AnyAction extends Action {
   payload?: any
@@ -28,12 +33,12 @@ export default {
     viewingDate: ''
   } as State,
   reducers: {
-    resetMonth: (state: any) => ({
+    resetMonth: (state: State) => ({
       ...state,
       year: moment().year(),
       month: moment().month()
     }),
-    prevMonth: (state: any) => ({
+    prevMonth: (state: State) => ({
       ...state,
       year: moment()
         .year(state.year)
@@ -46,7 +51,7 @@ export default {
         .subtract(1, 'month')
         .month()
     }),
-    nextMonth: (state: any) => ({
+    nextMonth: (state: State) => ({
       ...state,
       year: moment().year(state.year).month(state.month).add(1, 'month').year(),
       month: moment()
@@ -55,25 +60,63 @@ export default {
         .add(1, 'month')
         .month()
     }),
-    selectedDate: (state: any, action: AnyAction) => ({
+    selectedDate: (state: State, action: AnyAction) => ({
       ...state,
       viewingDetail: true,
       viewingDate: action.payload.date
     }),
-    toggleViewingDetail: (state: any) => ({
+    closeViewingDetail: (state: State) => ({
       ...state,
       viewingDetail: !state.viewingDetail
     }),
-    setCurrentMonthLogsMap: (state: any, action: AnyAction) => ({
+    setCurrentMonthLogsMap: (state: State, action: AnyAction) => ({
       ...state,
       currentMonthLogsMap: groupBy(action.payload.rows, 'date')
     }),
-    refreshDate: (state: any, action: AnyAction) => ({
-      ...state,
-      currentMonthLogsMap: {
-        ...state.currentMonthLogsMap,
-        [action.payload.date]: action.payload.rows
+    setLogsByDate: (state: State, action: AnyAction) => {
+      return {
+        ...state,
+        currentMonthLogsMap: {
+          ...state.currentMonthLogsMap,
+          [action.payload.date]: action.payload.rows
+        }
       }
-    })
+    }
+  },
+  effects: {
+    *refreshDate({ payload }: AnyAction, { put, call }) {
+      const { date } = payload
+      const rows = yield call(queryAllLogItemByDate, date)
+      yield put({
+        type: 'setLogsByDate',
+        payload: {
+          date,
+          rows
+        }
+      })
+    },
+    *createDate({ payload }: AnyAction, { put, call }) {
+      const { date } = payload
+      yield call(createLogItem, {
+        ...payload
+      })
+      yield put({
+        type: 'refreshDate',
+        payload: {
+          date
+        }
+      })
+    },
+    *deleteDateById({ payload }: AnyAction, { put, call }) {
+      const { date, id } = payload
+      yield call(deleteById, id)
+
+      yield put({
+        type: 'refreshDate',
+        payload: {
+          date
+        }
+      })
+    }
   }
 } as Model
