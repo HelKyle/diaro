@@ -31,7 +31,7 @@ const initialState = {
 }
 
 interface AnyAction extends Action {
-  payload: any
+  payload?: any
 }
 
 const reducer = (state = initialState, action: AnyAction) => {
@@ -109,6 +109,26 @@ export default function Calender(): JSX.Element {
       }
     })
   }
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.target &&
+        ['input', 'textarea'].includes((event.target as any).type)
+      ) {
+        return
+      }
+      if (event.key === 'ArrowRight') {
+        dispatch({ type: 'nextMonth' })
+      } else if (event.key === 'ArrowLeft') {
+        dispatch({ type: 'prevMonth' })
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   useEffect(() => {
     getLogs()
