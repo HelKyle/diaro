@@ -5,9 +5,9 @@ import { DAYS } from '@/constants/date'
 import Prev from '@/static/icons/prev.svg'
 import Next from '@/static/icons/next.svg'
 import Return from '@/static/icons/return.svg'
-import { CalenderContext } from '@/pages/Calender'
 import styles from './index.module.less'
 import { LogItemAttributes } from '@/models'
+import { useDispatch, useSelector } from 'dva'
 
 interface DateItemProps {
   inCurrentMonth: boolean
@@ -60,7 +60,7 @@ function generateDates(year: number, month: number) {
 
 const DateItem = (props: DateItemProps) => {
   const { inCurrentMonth, logs } = props
-  const { dispatch } = useContext(CalenderContext)
+  const dispatch = useDispatch()
   const dateStr = props.moment.format('YYYY-MM-DD')
 
   const cls = classnames(styles.calendarDate, {
@@ -74,7 +74,7 @@ const DateItem = (props: DateItemProps) => {
     }
 
     dispatch({
-      type: 'selectedDate',
+      type: 'calender/selectedDate',
       payload: {
         date: dateStr
       }
@@ -101,7 +101,8 @@ const DateItem = (props: DateItemProps) => {
 }
 
 export default (): JSX.Element => {
-  const { state, dispatch } = useContext(CalenderContext)
+  const state = useSelector((state) => state.calender)
+  const dispatch = useDispatch()
   const { year, month, currentMonthLogsMap } = state
   const currentYear = moment().year()
   const currentMonth = moment().month()
@@ -121,14 +122,14 @@ export default (): JSX.Element => {
           </h4>
           <div className={styles.operations}>
             {(year !== currentYear || month !== currentMonth) && (
-              <button onClick={() => dispatch({ type: 'resetMonth' })}>
+              <button onClick={() => dispatch({ type: 'calender/resetMonth' })}>
                 <Return />
               </button>
             )}
-            <button onClick={() => dispatch({ type: 'prevMonth' })}>
+            <button onClick={() => dispatch({ type: 'calender/prevMonth' })}>
               <Prev />
             </button>
-            <button onClick={() => dispatch({ type: 'nextMonth' })}>
+            <button onClick={() => dispatch({ type: 'calender/nextMonth' })}>
               <Next />
             </button>
           </div>

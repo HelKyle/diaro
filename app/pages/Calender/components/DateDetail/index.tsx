@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import Close from '@/static/icons/close.svg'
 import Empty from '@/components/Empty'
 import DragHandler from '@/static/icons/drag-handler.svg'
 import classnames from 'classnames'
 import Delete from '@/static/icons/delete.svg'
 import FlagSelector from '@/pages/Calender/components/FlagSelector'
-import { CalenderContext } from '@/pages/Calender'
 import { LogItemAttributes } from '@/models'
 import {
   queryAllLogItemByDate,
@@ -14,11 +13,12 @@ import {
 } from '@/services/daily'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import styles from './index.module.less'
+import { useDispatch, useSelector } from 'dva'
 
 export default () => {
   const [isDragging, setIsDragging] = useState(false)
-  const { state, dispatch } = useContext(CalenderContext)
-  const { viewingDate } = state
+  const dispatch = useDispatch()
+  const { viewingDate } = useSelector((state) => state.calender)
   const [value, setValue] = useState('')
   const [flag, setFlag] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -28,7 +28,7 @@ export default () => {
     setLoading(true)
     const rows = await queryAllLogItemByDate(viewingDate)
     dispatch({
-      type: 'refreshDate',
+      type: 'calender/refreshDate',
       payload: {
         date: viewingDate,
         rows
@@ -185,7 +185,7 @@ export default () => {
           </Droppable>
           <button
             className={styles.closeButton}
-            onClick={() => dispatch({ type: 'toggleViewingDetail' })}
+            onClick={() => dispatch({ type: 'calender/toggleViewingDetail' })}
           >
             <Close />
           </button>

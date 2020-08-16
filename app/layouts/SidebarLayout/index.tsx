@@ -1,9 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { router } from 'dva'
 import Settings from '@/static/icons/settings.svg'
 import Calender from '@/static/icons/calender.svg'
 import Trash from '@/static/icons/trash.svg'
 import styles from './index.module.less'
+
+const { NavLink } = router
 
 interface Props {
   children: React.ReactNode

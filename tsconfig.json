@@ -25,6 +25,7 @@
     "paths": {
       "@/*": ["app/*"]
     },
+    "types": ["app/types/*.d.ts"],
     "plugins": [
       {
         "name": "typescript-plugin-css-modules"
