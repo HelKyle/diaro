@@ -1,0 +1,21 @@
+{
+  "name": "daily-logger",
+  "productName": "DailyLogger",
+  "version": "0.0.1",
+  "description": "An effective tool for logging daily work",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "helkyle",
+    "email": "helkylefighting@gmail.com",
+    "url": "https://github.com/helkyle/daily-logger"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "sequelize": "^6.3.3",
+    "sqlite3": "^5.0.0"
+  }
+}

@@ -1,0 +1,164 @@
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+  background: var(--background);
+}
+
+.calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  height: 32px;
+}
+
+.title {
+  background: var(--selection);
+  font-size: 12px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  -webkit-app-region: drag;
+  position: relative;
+
+  .dateStr {
+    align-self: center;
+    font-size: 14px;
+    color: var(--foreground);
+  }
+
+  .operations {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    display: flex;
+    padding-right: 8px;
+
+    button {
+      -webkit-app-region: no-drag;
+      color: black;
+      height: 24px;
+      width: 24px;
+      border: none;
+      font-size: 10px;
+      margin-left: 8px;
+      display: flex;
+      border-radius: 50%;
+      cursor: pointer;
+      background: transparent;
+    }
+  }
+}
+
+.header {
+  display: grid;
+}
+
+.calendar {
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 68px auto;
+}
+
+.calendarDate {
+  align-self: stretch;
+  justify-self: stretch;
+  border-bottom: 1px solid var(--comment);
+  border-right: 1px solid var(--comment);
+  padding: 8px;
+  cursor: not-allowed;
+  overflow: hidden;
+  color: var(--comment);
+  transition: 0.15s;
+  display: flex;
+  flex-direction: column;
+
+  .logList {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+  .logList::-webkit-scrollbar {
+    display: none;
+  }
+  li {
+    margin-top: 1px;
+  }
+  .content {
+    font-size: 12px;
+    line-height: 26px;
+    color: var(--green);
+    background: var(--selection);
+    padding: 0 12px;
+    border-radius: 26px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    i {
+      width: 4px;
+      height: 4px;
+      flex: 0 0 4px;
+      margin-right: 8px;
+      display: block;
+      border-radius: 50%;
+      background: var(--fill);
+    }
+    span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
+
+.calendarDate.inCurrentMonth {
+  opacity: 1;
+  color: var(--purple);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--current-line);
+  }
+}
+
+.calendarDay {
+  background: var(--current-line);
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 16px;
+  align-items: center;
+  color: var(--comment);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.dateNum {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  flex: 0 0 24px;
+}
+
+.inCurrentMonth {
+  .dateNum {
+    border: 1px solid var(--comment);
+    border-radius: 50%;
+    opacity: 1;
+  }
+}
+
+.isToday {
+  .dateNum {
+    background: var(--purple);
+    border: 1px solid var(--purple);
+    color: white;
+  }
+}

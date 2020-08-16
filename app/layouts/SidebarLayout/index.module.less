@@ -1,0 +1,44 @@
+.sidebarLayout {
+  display: flex;
+}
+
+.aside {
+  flex: 0 0 80px;
+  background: #1c1c23;
+  padding-top: 80px;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  -webkit-app-region: drag;
+
+  .navItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    color: #524e58;
+    text-decoration: none;
+    outline: none;
+    svg {
+      transition: 0.15s;
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    &:hover {
+      color: lighten(#524e58, 10%);
+    }
+    .label {
+      font-size: 12px;
+    }
+
+    &.active {
+      color: var(--purple);
+    }
+  }
+}
+
+.main {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
