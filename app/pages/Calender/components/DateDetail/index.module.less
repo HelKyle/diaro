@@ -1,6 +1,6 @@
 .dateDetail {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   flex-direction: column;
   overflow: hidden;
   background: var(--background);
@@ -48,14 +48,17 @@
 
 .wrapper {
   flex: 1 1 auto;
-  overflow: auto;
+  overflow-y: scroll;
   display: flex;
   justify-content: center;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .footer {
   flex: 0 0 250px;
-  padding: 24px 8px;
+  padding: 24px 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   position: relative;
   .closeButton {
@@ -73,6 +76,25 @@
   }
 }
 
+.footerMain {
+  position: relative;
+  padding: 0 8px;
+
+  .deleteDropZone {
+    position: absolute;
+    font-size: 18px;
+    background: var(--border);
+    color: var(--red);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .logList {
   padding: 0;
   margin: 0;
@@ -86,52 +108,41 @@
   background: var(--selection);
   position: relative;
 
-  .dragHandler {
-    color: var(--comment);
-    flex: 0 0 20px;
-    font-size: 16px;
-    padding: 4px 8px;
+  &.isDragging {
+    opacity: 0.5;
   }
+
+  .flag {
+    flex: 0 0 auto;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    margin: 0 8px;
+    i {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      display: block;
+      background: var(--fill);
+    }
+  }
+
+  .contentWrapper {
+    flex: 1 1 auto;
+  }
+
   .content {
     font-size: 13px;
     line-height: 24px;
     color: var(--green);
+    width: 100%;
   }
 
-  &:hover {
-    .operations {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-
-  .operations {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: var(--red);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    opacity: 0;
-    visibility: hidden;
-    padding: 16px;
-    transition: 0.15s 0.15s;
-    backdrop-filter: blur(2px);
-    background: rgba(0, 0, 0, 0.45);
-
-    i {
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 24px;
-      height: 24px;
-      font-size: 12px;
-      border-radius: 50%;
-      color: var(--red);
-    }
+  .dragHandler {
+    color: var(--darken);
+    flex: 0 0 20px;
+    font-size: 16px;
+    padding: 4px 8px;
   }
 }
 

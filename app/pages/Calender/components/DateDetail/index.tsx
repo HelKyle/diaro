@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import Close from '@/static/icons/close.svg'
 import Empty from '@/components/Empty'
 import DragHandler from '@/static/icons/drag-handler.svg'
+import classnames from 'classnames'
 import Delete from '@/static/icons/delete.svg'
 import FlagSelector from '@/pages/Calender/components/FlagSelector'
 import { CalenderContext } from '@/pages/Calender'
@@ -15,6 +16,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import styles from './index.module.less'
 
 export default () => {
+  const [isDragging, setIsDragging] = useState(false)
   const { state, dispatch } = useContext(CalenderContext)
   const { viewingDate } = state
   const [value, setValue] = useState('')
@@ -70,9 +72,16 @@ export default () => {
   }
 
   function handleDragEnd(result: any) {
+    setIsDragging(false)
     if (!result.destination) {
       return
     }
+
+    if (result.destination.droppableId === 'delete') {
+      handleDelete(result.source.index)
+      return
+    }
+
     if (result.destination.index === result.source.index) {
       return
     }
@@ -89,44 +98,53 @@ export default () => {
     return
   }
 
+  function handleDragStart() {
+    setIsDragging(true)
+  }
+
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="list">
-        {(provided: any) => (
-          <div
-            className={styles.dateDetail}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            <div className={styles.header}>
-              <h3 className={styles.title}>{viewingDate}</h3>
-            </div>
-            <div className={styles.wrapper}>
+    <DragDropContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <div className={styles.dateDetail}>
+        <div className={styles.header}>
+          <h3 className={styles.title}>{viewingDate}</h3>
+        </div>
+        <Droppable droppableId="list">
+          {(provided: any) => (
+            <div
+              className={styles.wrapper}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
               {!loading && logs.length === 0 ? (
                 <Empty />
               ) : (
                 <ul className={styles.logList}>
                   {logs.map(
-                    ({ id, content }: LogItemAttributes, index: number) => (
+                    (
+                      { id, content, flag }: LogItemAttributes,
+                      index: number
+                    ) => (
                       <Draggable draggableId={`${id}`} index={index} key={id}>
-                        {(provided: any) => (
+                        {(provided: any, snapshot: any) => (
                           <li
-                            className={styles.logItem}
+                            className={classnames(styles.logItem, {
+                              [styles.isDragging]: snapshot.isDragging
+                            })}
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                           >
+                            <span className={styles.flag}>
+                              <i data-color-flag={flag} />
+                            </span>
+                            <div className={styles.contentWrapper}>
+                              <p className={styles.content}>{content}</p>
+                            </div>
                             <span
                               className={styles.dragHandler}
                               {...provided.dragHandleProps}
                             >
                               <DragHandler />
                             </span>
-                            <p className={styles.content}>{content}</p>
-                            <div className={styles.operations}>
-                              <i onClick={() => handleDelete(index)}>
-                                <Delete />
-                              </i>
-                            </div>
                           </li>
                         )}
                       </Draggable>
@@ -136,8 +154,21 @@ export default () => {
                 </ul>
               )}
             </div>
-            <div className={styles.footer}>
-              <div>
+          )}
+        </Droppable>
+        <div className={styles.footer}>
+          <Droppable droppableId="delete">
+            {(provided: any) => (
+              <div
+                className={styles.footerMain}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {isDragging ? (
+                  <div className={styles.deleteDropZone}>
+                    <Delete />
+                  </div>
+                ) : null}
                 <textarea
                   className={styles.input}
                   rows={4}
@@ -150,16 +181,16 @@ export default () => {
                   Create
                 </button>
               </div>
-              <button
-                className={styles.closeButton}
-                onClick={() => dispatch({ type: 'toggleViewingDetail' })}
-              >
-                <Close />
-              </button>
-            </div>
-          </div>
-        )}
-      </Droppable>
+            )}
+          </Droppable>
+          <button
+            className={styles.closeButton}
+            onClick={() => dispatch({ type: 'toggleViewingDetail' })}
+          >
+            <Close />
+          </button>
+        </div>
+      </div>
     </DragDropContext>
   )
 }
