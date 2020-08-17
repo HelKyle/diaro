@@ -9,7 +9,7 @@ export * from './LogItems'
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: app.getPath('appData') + '/database.sqlite'
+  storage: app.getPath('userData') + '/database.sqlite'
 })
 
 export default {
