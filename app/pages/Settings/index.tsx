@@ -21,9 +21,15 @@ export default () => {
 
   return (
     <div className={styles.settings}>
-      <button onClick={toggleOpenAtLogin}>
-        Open At Login: {openAtLogin ? 'on' : 'off'}
-      </button>
+      <div className={styles.switch}>
+        <input
+          type="checkbox"
+          id="switch"
+          checked={openAtLogin}
+          onChange={toggleOpenAtLogin}
+        />
+        <label htmlFor="switch">Toggle</label>
+      </div>
     </div>
   )
 }
