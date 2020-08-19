@@ -1,19 +1,30 @@
 import React from 'react'
 
+function delayLoadForAnimation(dynamicImportFunc: () => Promise<any>) {
+  return React.lazy(
+    () =>
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(dynamicImportFunc())
+        }, 1000)
+      })
+  )
+}
+
 export default [
   {
     path: '/',
     exact: true,
-    component: React.lazy(() => import('@/pages/Calender'))
+    component: delayLoadForAnimation(() => import('@/pages/Calender'))
   },
   {
     path: '/trash',
     exact: true,
-    component: React.lazy(() => import('@/pages/Trash'))
+    component: delayLoadForAnimation(() => import('@/pages/Trash'))
   },
   {
     path: '/settings',
     exact: true,
-    component: React.lazy(() => import('@/pages/Settings'))
+    component: delayLoadForAnimation(() => import('@/pages/Settings'))
   }
 ]
