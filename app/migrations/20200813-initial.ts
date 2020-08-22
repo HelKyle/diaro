@@ -36,4 +36,4 @@ async function down(queryInterface: QueryInterface) {
   await queryInterface.dropTable('LogItems')
 }
 
-module.exports = { up, down }
+export default { up, down }
