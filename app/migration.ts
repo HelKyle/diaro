@@ -1,10 +1,6 @@
 import { Sequelize } from 'sequelize'
-import { Umzug, SequelizeStorage } from 'umzug'
+import { Umzug, SequelizeStorage, migrationsList } from 'umzug'
 import { app } from 'electron'
-
-if (process.env.NODE_ENV === 'production') {
-  require.context('./migrations', true, /\.ts$/)
-}
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -12,17 +8,15 @@ const sequelize = new Sequelize({
 }) as any
 
 const umzug = new Umzug({
-  migrations: {
-    path: './app/migrations',
-    customResolver:
-      process.env.NODE_ENV === 'production'
-        ? function (filePath) {
-            return __webpack_require__(filePath.replace(/^.*\/app\//, './app/'))
-          }
-        : undefined,
-    pattern: /\.ts$/,
-    params: [sequelize.getQueryInterface()]
-  },
+  migrations: migrationsList(
+    [
+      {
+        name: '20200813-initial.ts',
+        ...require('./migrations/20200813-initial.ts').default
+      }
+    ],
+    [sequelize.getQueryInterface()]
+  ),
   storage: new SequelizeStorage({ sequelize })
 })
 
