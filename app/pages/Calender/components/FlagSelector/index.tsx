@@ -9,51 +9,18 @@ interface Props {
 
 export default (props: Props) => {
   const { onChange } = props
-  const items = [
-    {
-      value: 0,
-      className: styles.red
-    },
-    {
-      value: 1,
-      className: styles.yellow
-    },
-    {
-      value: 2,
-      className: styles.blue
-    },
-    {
-      value: 3,
-      className: styles.green
-    },
-    {
-      value: 4,
-      className: styles.purple
-    },
-    {
-      value: 5,
-      className: styles.pink
-    },
-    {
-      value: 6,
-      className: styles.orange
-    },
-    {
-      value: 7,
-      className: styles.cyan
-    }
-  ]
 
   return (
     <ul className={styles.flagSelector}>
-      {items.map(({ value, className }) => {
+      {new Array(8).fill(0).map((value, index) => {
         return (
           <li
-            className={classnames(className, styles.flagItem, {
-              [styles.active]: value === props.value
+            className={classnames(styles.flagItem, {
+              [styles.active]: index === props.value
             })}
-            onClick={() => onChange(value)}
-            key={value}
+            data-color-flag={index}
+            onClick={() => onChange(index)}
+            key={index}
           />
         )
       })}

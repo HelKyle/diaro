@@ -2,49 +2,5 @@
   height: 100vh;
   overflow-y: auto;
   background: var(--background);
-}
-
-.switch {
-  font-size: 20px;
-  input[type='checkbox'] {
-    height: 0;
-    width: 0;
-    visibility: hidden;
-  }
-
-  label {
-    cursor: pointer;
-    text-indent: -9999px;
-    width: 8em;
-    height: 4em;
-    background: var(--darken);
-    display: block;
-    border-radius: 4em;
-    position: relative;
-  }
-
-  label::after {
-    content: '';
-    position: absolute;
-    top: 0.2em;
-    left: 0.25em;
-    width: 3.6em;
-    height: 3.6em;
-    background: #fff;
-    border-radius: 2.25em;
-    transition: 0.3s;
-  }
-
-  input:checked + label {
-    background: var(--purple);
-  }
-
-  input:checked + label::after {
-    left: calc(100% - 0.25em);
-    transform: translateX(-100%);
-  }
-
-  label:active::after {
-    width: 4.75em;
-  }
+  padding: 64px 80px;
 }

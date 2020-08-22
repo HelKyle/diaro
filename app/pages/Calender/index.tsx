@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import classnames from 'classnames'
 import styles from './index.module.less'
-import Calendar from '@/pages/Calender/components/Calendar'
+import CalendarGrid from '@/pages/Calender/components/CalendarGrid'
 import DateDetail from '@/pages/Calender/components/DateDetail'
 import { queryAllLogsByMonth } from '@/services/daily'
 import moment from 'moment'
@@ -44,6 +44,7 @@ export default function Calender(): JSX.Element {
       }
     }
     window.addEventListener('keydown', handleKeyDown)
+
     return () => {
       dispatch({ type: 'calender/closeViewingDetail' })
       window.removeEventListener('keydown', handleKeyDown)
@@ -56,7 +57,7 @@ export default function Calender(): JSX.Element {
 
   return (
     <div className={cls}>
-      <Calendar />
+      <CalendarGrid />
       {viewingDetail ? <DateDetail /> : null}
     </div>
   )

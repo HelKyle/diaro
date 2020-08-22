@@ -1,10 +1,11 @@
 .sidebarLayout {
   display: flex;
+  background: var(--sidebar-background);
 }
 
 .aside {
-  flex: 0 0 80px;
-  background: #1c1c23;
+  flex: 0 0 72px;
+  background: var(--sidebar-background);
   padding-top: 80px;
   height: 100vh;
   display: flex;
@@ -21,19 +22,18 @@
     text-decoration: none;
     outline: none;
     svg {
-      transition: 0.15s;
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 12px;
     }
     &:hover {
       color: lighten(#524e58, 10%);
     }
     .label {
-      font-size: 12px;
+      font-size: 10px;
     }
 
     &.active {
-      color: var(--purple);
+      color: var(--primary-color);
     }
   }
 }
@@ -42,4 +42,7 @@
   flex: 1 1 auto;
   overflow: hidden;
   height: 100vh;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.05);
 }

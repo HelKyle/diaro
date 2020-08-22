@@ -67,7 +67,7 @@ export default {
     }),
     closeViewingDetail: (state: State) => ({
       ...state,
-      viewingDetail: !state.viewingDetail
+      viewingDetail: false
     }),
     setCurrentMonthLogsMap: (state: State, action: AnyAction) => ({
       ...state,

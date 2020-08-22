@@ -6,7 +6,7 @@ function delayLoadForAnimation(dynamicImportFunc: () => Promise<any>) {
       new Promise((resolve) => {
         setTimeout(() => {
           resolve(dynamicImportFunc())
-        }, 1000)
+        }, 600)
       })
   )
 }

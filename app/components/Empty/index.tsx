@@ -6,7 +6,7 @@ export default () => {
   return (
     <div className={styles.empty}>
       <Empty />
-      <span>No Data.</span>
+      <span>No Data</span>
     </div>
   )
 }

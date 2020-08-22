@@ -3,6 +3,7 @@
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
   background: var(--background);
+  user-select: none;
 }
 
 .calendarDays {
@@ -12,7 +13,6 @@
 }
 
 .title {
-  background: var(--selection);
   font-size: 12px;
   height: 36px;
   display: flex;
@@ -24,7 +24,8 @@
   .dateStr {
     align-self: center;
     font-size: 14px;
-    color: var(--foreground);
+    color: var(--text-primary);
+    font-weight: bold;
   }
 
   .operations {
@@ -65,8 +66,8 @@
 .calendarDate {
   align-self: stretch;
   justify-self: stretch;
-  border-bottom: 1px solid var(--comment);
-  border-right: 1px solid var(--comment);
+  border-bottom: 1px solid var(--calender-date-border);
+  border-right: 1px solid var(--calender-date-border);
   padding: 8px;
   cursor: not-allowed;
   overflow: hidden;
@@ -89,8 +90,8 @@
   .content {
     font-size: 12px;
     line-height: 26px;
-    color: var(--green);
-    background: var(--selection);
+    color: var(--log-item-color);
+    background: var(--log-item-background);
     padding: 0 12px;
     border-radius: 26px;
     display: flex;
@@ -116,23 +117,25 @@
 
 .calendarDate.inCurrentMonth {
   opacity: 1;
-  color: var(--purple);
+  color: var(--primary-color);
   cursor: pointer;
 
   &:hover {
-    background: var(--current-line);
+    background: var(--calender-date-hover-background);
   }
 }
 
 .calendarDay {
-  background: var(--current-line);
   display: flex;
   justify-content: flex-end;
   padding-right: 16px;
   align-items: center;
-  color: var(--comment);
+  color: var(--text-primary);
+  background: var(--background);
   font-size: 12px;
   font-style: italic;
+  border-bottom: 1px solid var(--calender-date-border);
+  border-right: 1px solid var(--calender-date-border);
 }
 
 .dateNum {
@@ -149,16 +152,18 @@
 
 .inCurrentMonth {
   .dateNum {
-    border: 1px solid var(--comment);
+    border: 1px solid var(--calender-date-num-border);
     border-radius: 50%;
     opacity: 1;
+    font-weight: bold;
   }
 }
 
 .isToday {
   .dateNum {
-    background: var(--purple);
-    border: 1px solid var(--purple);
+    background: var(--primary-color);
+    border: 1px solid var(--primary-color);
     color: white;
+    font-weight: bold;
   }
 }
