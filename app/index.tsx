@@ -17,13 +17,13 @@ app.router(({ history }: any) => (
   </AppContainer>
 ))
 
-document.documentElement.setAttribute(
-  'data-theme',
-  localStorage.getItem('theme') || ''
-)
-
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.setAttribute(
+    'data-theme',
+    localStorage.getItem('theme') || ''
+  )
+
   app.start('#root')
 })
