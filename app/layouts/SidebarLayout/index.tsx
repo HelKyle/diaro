@@ -20,7 +20,7 @@ export default (props: Props) => {
           <ul>
             <li>
               <NavLink
-                to="/"
+                to="/calender"
                 exact
                 className={styles.navItem}
                 activeClassName={styles.active}
