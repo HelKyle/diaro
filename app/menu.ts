@@ -54,15 +54,15 @@ export default class MenuBuilder {
 
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
-      label: 'DailyLogger',
+      label: 'Helog',
       submenu: [
         {
-          label: 'About DailyLogger',
+          label: 'About Helog',
           selector: 'orderFrontStandardAboutPanel:'
         },
         { type: 'separator' },
         {
-          label: 'Hide DailyLogger',
+          label: 'Hide Helog',
           accelerator: 'Command+H',
           selector: 'hide:'
         },
@@ -155,13 +155,13 @@ export default class MenuBuilder {
         {
           label: 'Learn More',
           click() {
-            shell.openExternal('https://github.com/HelKyle/daily-logger')
+            shell.openExternal('https://github.com/HelKyle/helog')
           }
         },
         {
           label: 'Search Issues',
           click() {
-            shell.openExternal('https://github.com/HelKyle/daily-logger/issues')
+            shell.openExternal('https://github.com/HelKyle/helog/issues')
           }
         }
       ]
@@ -242,15 +242,13 @@ export default class MenuBuilder {
           {
             label: 'Learn More',
             click() {
-              shell.openExternal('https://github.com/HelKyle/daily-logger')
+              shell.openExternal('https://github.com/HelKyle/helog')
             }
           },
           {
             label: 'Search Issues',
             click() {
-              shell.openExternal(
-                'https://github.com/HelKyle/daily-logger/issues'
-              )
+              shell.openExternal('https://github.com/HelKyle/helog/issues')
             }
           }
         ]

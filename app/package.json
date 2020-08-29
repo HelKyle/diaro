@@ -1,13 +1,13 @@
 {
-  "name": "daily-logger",
-  "productName": "DailyLogger",
+  "name": "helog",
+  "productName": "Helog",
   "version": "0.0.1",
   "description": "An effective tool for logging daily work",
   "main": "./main.prod.js",
   "author": {
     "name": "helkyle",
     "email": "helkylefighting@gmail.com",
-    "url": "https://github.com/helkyle/daily-logger"
+    "url": "https://github.com/helkyle/helog"
   },
   "scripts": {
     "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",

@@ -145,7 +145,7 @@ app.whenReady().then(async () => {
     },
     () => {
       const notification = new Notification({
-        title: 'Daily Logger',
+        title: 'Helog',
         body: 'Did you log today?'
       })
 

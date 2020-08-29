@@ -1,6 +1,6 @@
 {
-  "name": "daily-logger",
-  "productName": "DailyLogger",
+  "name": "helog",
+  "productName": "Helog",
   "version": "0.0.1",
   "description": "An effective tool for logging daily work",
   "scripts": {
@@ -49,8 +49,8 @@
     ]
   },
   "build": {
-    "productName": "DailyLogger",
-    "appId": "org.helkyle.DailyLogger",
+    "productName": "Helog",
+    "appId": "org.helkyle.Helog",
     "files": [
       "dist/",
       "node_modules/",
@@ -94,22 +94,22 @@
     "publish": {
       "provider": "github",
       "owner": "helkyle",
-      "repo": "daily-logger",
+      "repo": "helog",
       "private": false
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/helkyle/daily-logger"
+    "url": "git+https://github.com/helkyle/helog"
   },
   "author": {
     "name": "HelKyle",
     "email": "helkylefighting@gmail.com",
-    "url": "https://github.com/helkyle/daily-logger"
+    "url": "https://github.com/helkyle/helog"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/helkyle/daily-logger/issues"
+    "url": "https://github.com/helkyle/helog/issues"
   },
   "keywords": [
     "electron",

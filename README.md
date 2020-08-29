@@ -16,4 +16,4 @@ yarn package
 
 ## License
 
-MIT © [Daily Logger](https://github.com/HelKyle/daily-logger/blob/master/LICENSE)
+MIT © [Helog](https://github.com/HelKyle/helog/blob/master/LICENSE)
