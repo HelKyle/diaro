@@ -1,6 +1,6 @@
 {
-  "name": "helog",
-  "productName": "Helog",
+  "name": "diaro",
+  "productName": "Diaro",
   "version": "0.0.1",
   "description": "An effective tool for logging daily work",
   "scripts": {
@@ -49,8 +49,8 @@
     ]
   },
   "build": {
-    "productName": "Helog",
-    "appId": "org.helkyle.Helog",
+    "productName": "Diaro",
+    "appId": "org.helkyle.Diaro",
     "files": [
       "dist/",
       "node_modules/",
@@ -94,22 +94,22 @@
     "publish": {
       "provider": "github",
       "owner": "helkyle",
-      "repo": "helog",
+      "repo": "diaro",
       "private": false
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/helkyle/helog"
+    "url": "git+https://github.com/helkyle/diaro"
   },
   "author": {
     "name": "HelKyle",
     "email": "helkylefighting@gmail.com",
-    "url": "https://github.com/helkyle/helog"
+    "url": "https://github.com/helkyle/diaro"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/helkyle/helog/issues"
+    "url": "https://github.com/helkyle/diaro/issues"
   },
   "keywords": [
     "electron",

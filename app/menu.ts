@@ -54,15 +54,15 @@ export default class MenuBuilder {
 
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
-      label: 'Helog',
+      label: 'Diaro',
       submenu: [
         {
-          label: 'About Helog',
+          label: 'About Diaro',
           selector: 'orderFrontStandardAboutPanel:'
         },
         { type: 'separator' },
         {
-          label: 'Hide Helog',
+          label: 'Hide Diaro',
           accelerator: 'Command+H',
           selector: 'hide:'
         },
@@ -155,13 +155,13 @@ export default class MenuBuilder {
         {
           label: 'Learn More',
           click() {
-            shell.openExternal('https://github.com/HelKyle/helog')
+            shell.openExternal('https://github.com/HelKyle/diaro')
           }
         },
         {
           label: 'Search Issues',
           click() {
-            shell.openExternal('https://github.com/HelKyle/helog/issues')
+            shell.openExternal('https://github.com/HelKyle/diaro/issues')
           }
         }
       ]
@@ -242,13 +242,13 @@ export default class MenuBuilder {
           {
             label: 'Learn More',
             click() {
-              shell.openExternal('https://github.com/HelKyle/helog')
+              shell.openExternal('https://github.com/HelKyle/diaro')
             }
           },
           {
             label: 'Search Issues',
             click() {
-              shell.openExternal('https://github.com/HelKyle/helog/issues')
+              shell.openExternal('https://github.com/HelKyle/diaro/issues')
             }
           }
         ]

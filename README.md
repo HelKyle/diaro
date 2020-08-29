@@ -16,4 +16,4 @@ yarn package
 
 ## License
 
-MIT © [Helog](https://github.com/HelKyle/helog/blob/master/LICENSE)
+MIT © [Diaro](https://github.com/HelKyle/diaro/blob/master/LICENSE)

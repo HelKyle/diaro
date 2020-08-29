@@ -145,7 +145,7 @@ app.whenReady().then(async () => {
     },
     () => {
       const notification = new Notification({
-        title: 'Helog',
+        title: 'Diaro',
         body: 'Did you log today?'
       })
 

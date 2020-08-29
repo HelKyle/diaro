@@ -1,13 +1,13 @@
 {
-  "name": "helog",
-  "productName": "Helog",
+  "name": "diaro",
+  "productName": "Diaro",
   "version": "0.0.1",
   "description": "An effective tool for logging daily work",
   "main": "./main.prod.js",
   "author": {
     "name": "helkyle",
     "email": "helkylefighting@gmail.com",
-    "url": "https://github.com/helkyle/helog"
+    "url": "https://github.com/helkyle/diaro"
   },
   "scripts": {
     "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
