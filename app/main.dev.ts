@@ -11,7 +11,7 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import path from 'path'
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, Notification } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import log from 'electron-log'
 import MenuBuilder from './menu'
@@ -133,4 +133,28 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow()
+})
+
+app.whenReady().then(async () => {
+  const schedule = require('node-schedule')
+  schedule.scheduleJob(
+    {
+      hour: 18,
+      minute: 30,
+      dayOfWeek: [0, new schedule.Range(1, 5)]
+    },
+    () => {
+      const notification = new Notification({
+        title: 'Daily Logger',
+        body: 'Did you log today?'
+      })
+
+      notification.on('click', () => {
+        mainWindow!.moveTop()
+        mainWindow!.focus()
+      })
+
+      notification.show()
+    }
+  )
 })
