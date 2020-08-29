@@ -12,8 +12,6 @@ import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import path from 'path'
 import { app, BrowserWindow, ipcMain, Notification } from 'electron'
-import { autoUpdater } from 'electron-updater'
-import log from 'electron-log'
 import MenuBuilder from './menu'
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
@@ -22,14 +20,6 @@ import installExtension, {
 import { runMigrations } from './migration'
 
 app.allowRendererProcessReuse = true
-
-export default class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info'
-    autoUpdater.logger = log
-    autoUpdater.checkForUpdatesAndNotify()
-  }
-}
 
 let mainWindow: BrowserWindow | null = null
 
@@ -99,10 +89,6 @@ const createWindow = async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow)
   menuBuilder.buildMenu()
-
-  // Remove this if your app does not use auto updates
-  // eslint-disable-next-line
-  new AppUpdater()
 }
 
 ipcMain.on('migration-start', (event) => {

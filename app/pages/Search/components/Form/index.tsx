@@ -15,9 +15,14 @@ export default (props: Props) => {
     deleted: false
   })
 
-  const handleSubmit = useCallback(() => {
-    onSubmit(form)
-  }, [form, onSubmit])
+  const handleSubmit = useCallback(
+    (event: React.FormEvent) => {
+      event.stopPropagation()
+      event.preventDefault()
+      onSubmit(form)
+    },
+    [form, onSubmit]
+  )
 
   const handleLikeChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +45,7 @@ export default (props: Props) => {
   const handleFlagChange = useCallback((val) => {
     setForm((curForm) => ({
       ...curForm,
-      flag: val
+      flag: val === curForm.flag ? undefined : val
     }))
   }, [])
 
