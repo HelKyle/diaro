@@ -1,9 +1,11 @@
 .calendarGrid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   background: var(--background);
   user-select: none;
+  flex: 1;
+  min-height: 0;
 }
 
 .calendarDays {
@@ -132,7 +134,7 @@
   align-items: center;
   color: var(--text-primary);
   background: var(--background);
-  font-size: 12px;
+  font-size: 10px;
   font-style: italic;
   border-bottom: 1px solid var(--calender-date-border);
   border-right: 1px solid var(--calender-date-border);
