@@ -24,9 +24,9 @@ export default [
     component: delayLoadForAnimation(() => import('@/pages/Calender'))
   },
   {
-    path: '/trash',
+    path: '/search',
     exact: true,
-    component: delayLoadForAnimation(() => import('@/pages/Trash'))
+    component: delayLoadForAnimation(() => import('@/pages/Search'))
   },
   {
     path: '/settings',

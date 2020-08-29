@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import styles from './index.module.less'
 
 interface Props {
-  value: number
+  value?: number
   onChange: (val: number) => void
 }
 

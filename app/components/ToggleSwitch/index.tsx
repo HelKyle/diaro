@@ -3,13 +3,14 @@ import styles from './index.module.less'
 
 interface Props {
   id: string
+  size: number
   value: boolean
   onChange: (val: boolean) => void
   renderContent?: (val: boolean) => React.ReactNode
 }
 
 export default (props: Props) => {
-  const { value, onChange, renderContent = () => null, id } = props
+  const { value, onChange, renderContent = () => null, id, size } = props
 
   const handleCheckboxChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +20,7 @@ export default (props: Props) => {
   )
 
   return (
-    <div className={styles.switch}>
+    <div className={styles.switch} style={{ fontSize: size }}>
       <input
         type="checkbox"
         id={id}

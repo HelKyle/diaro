@@ -25,13 +25,37 @@ export const queryAllLogsByMonth = (
   })
 }
 
-export const queryAllDeleted = (): Promise<LogItemAttributes[]> => {
+export const query = ({
+  deleted,
+  like,
+  flag
+}: {
+  deleted?: boolean
+  like?: string
+  flag?: number
+} = {}): Promise<LogItemAttributes[]> => {
   return models.logItems.findAll({
-    paranoid: false,
+    paranoid: !deleted,
     where: {
-      deletedAt: {
-        [Op.not]: null
-      }
+      ...(deleted
+        ? {
+            deletedAt: {
+              [Op.not]: null
+            }
+          }
+        : {}),
+      ...(like
+        ? {
+            content: {
+              [Op.like]: `%${like}%`
+            }
+          }
+        : {}),
+      ...(typeof flag === 'undefined'
+        ? {}
+        : {
+            flag
+          })
     },
     order: [['date', 'desc']]
   })

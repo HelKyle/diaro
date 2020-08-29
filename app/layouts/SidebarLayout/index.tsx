@@ -2,7 +2,7 @@ import React from 'react'
 import { router } from 'dva'
 import Settings from '@/static/icons/settings.svg'
 import Calender from '@/static/icons/calender.svg'
-import Trash from '@/static/icons/trash.svg'
+import Search from '@/static/icons/search.svg'
 import styles from './index.module.less'
 
 const { NavLink } = router
@@ -33,15 +33,15 @@ export default (props: Props) => {
             </li>
             <li>
               <NavLink
-                to="/trash"
+                to="/Search"
                 exact
                 className={styles.navItem}
                 activeClassName={styles.active}
               >
                 <i>
-                  <Trash />
+                  <Search />
                 </i>
-                <span className={styles.label}>Trash</span>
+                <span className={styles.label}>Search</span>
               </NavLink>
             </li>
             <li>

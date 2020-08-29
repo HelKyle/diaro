@@ -1,7 +1,15 @@
-.trash {
+.searchPage {
   height: 100vh;
-  overflow-y: auto;
+  flex-direction: column;
+  display: flex;
   background-color: var(--background);
+}
+
+.content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 24px;
   &::-webkit-scrollbar {
     display: none;
   }

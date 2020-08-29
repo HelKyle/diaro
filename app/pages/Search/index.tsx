@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import {
-  queryAllDeleted,
-  deleteByIdForce,
-  restoreDeletedById
-} from '@/services/daily'
+import { query, deleteByIdForce, restoreDeletedById } from '@/services/daily'
 import Empty from '@/components/Empty'
 import { LogItemAttributes } from '@/models'
 import Shredder from '@/static/icons/shredder.svg'
 import Recycle from '@/static/icons/recycle.svg'
 import { groupBy } from 'lodash'
 import styles from './index.module.less'
+import FilterForm from './components/Form'
 
 interface DateGroupProps {
   logs: LogItemAttributes[]
@@ -74,8 +71,12 @@ export default () => {
     {}
   )
 
-  const doRequest = useCallback(async () => {
-    const rows = await queryAllDeleted()
+  const handleSearch = useCallback((values) => {
+    doRequest(values)
+  }, [])
+
+  const doRequest = useCallback(async (params) => {
+    const rows = await query(params)
     setGroups(groupBy(rows, 'date'))
   }, [])
 
@@ -89,7 +90,7 @@ export default () => {
   }, [])
 
   useEffect(() => {
-    doRequest()
+    doRequest({})
   }, [])
 
   const isEmpty =
@@ -97,21 +98,24 @@ export default () => {
     Object.keys(groups).every((key) => groups[key].length === 0)
 
   return (
-    <div className={styles.trash}>
-      {isEmpty ? (
-        <Empty />
-      ) : (
-        Object.keys(groups).map((key: string) => {
-          return (
-            <DateGroup
-              key={key}
-              date={key}
-              logs={groups[key] || []}
-              onChange={(itemId) => handleDateGroupChange(key, itemId)}
-            />
-          )
-        })
-      )}
+    <div className={styles.searchPage}>
+      <FilterForm onSubmit={handleSearch} />
+      <div className={styles.content}>
+        {isEmpty ? (
+          <Empty />
+        ) : (
+          Object.keys(groups).map((key: string) => {
+            return (
+              <DateGroup
+                key={key}
+                date={key}
+                logs={groups[key] || []}
+                onChange={(itemId) => handleDateGroupChange(key, itemId)}
+              />
+            )
+          })
+        )}
+      </div>
     </div>
   )
 }
