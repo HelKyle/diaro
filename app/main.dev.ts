@@ -132,7 +132,7 @@ app.whenReady().then(async () => {
     () => {
       const notification = new Notification({
         title: 'Diaro',
-        body: 'Did you log today?'
+        body: 'Don’t forget to write down what you did today?'
       })
 
       notification.on('click', () => {
