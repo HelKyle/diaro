@@ -24,7 +24,7 @@ export default () => {
     setValue(event!.target.value)
   }
 
-  async function handleCreate() {
+  async function handleSubmit() {
     const content = value.trim()
     if (content) {
       dispatch({
@@ -39,17 +39,11 @@ export default () => {
     setValue('')
   }
 
-  // const reorder = function <T>(
-  //   list: T[],
-  //   startIndex: number,
-  //   endIndex: number
-  // ): T[] {
-  //   const result = Array.from(list)
-  //   const [removed] = result.splice(startIndex, 1)
-  //   result.splice(endIndex, 0, removed)
-
-  //   return result
-  // }
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter' && event.metaKey) {
+      handleSubmit()
+    }
+  }
 
   function handleDragEnd(result: any) {
     setIsDragging(false)
@@ -161,9 +155,10 @@ export default () => {
                   value={value}
                   placeholder={'log something...'}
                   onChange={handleChange}
+                  onKeyDown={handleKeyDown}
                 />
                 <FlagSelector value={flag} onChange={setFlag} />
-                <button className={styles.createButton} onClick={handleCreate}>
+                <button className={styles.createButton} onClick={handleSubmit}>
                   Create
                 </button>
               </div>

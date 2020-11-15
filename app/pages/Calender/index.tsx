@@ -29,12 +29,10 @@ export default function Calender(): JSX.Element {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (
-        event.target &&
-        ['input', 'textarea'].includes((event.target as any).type)
-      ) {
+      if (!event.metaKey) {
         return
       }
+
       if (event.key === 'ArrowRight') {
         dispatch({ type: 'calender/nextMonth' })
       } else if (event.key === 'ArrowLeft') {
