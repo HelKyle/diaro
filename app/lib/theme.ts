@@ -10,11 +10,6 @@ const LocalStorageKey = 'theme-source'
 remote.nativeTheme.themeSource =
   (localStorage.getItem(LocalStorageKey) as ThemeSource) || 'system'
 
-document.documentElement.setAttribute(
-  'data-theme',
-  remote.nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
-)
-
 remote.nativeTheme.on('updated', () => {
   if (remote.nativeTheme.themeSource !== 'system') {
     return
@@ -25,6 +20,13 @@ remote.nativeTheme.on('updated', () => {
     remote.nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
   )
 })
+
+export const initRendererTheme = () => {
+  document.documentElement.setAttribute(
+    'data-theme',
+    remote.nativeTheme.shouldUseDarkColors ? 'dark' : 'light'
+  )
+}
 
 export const useThemeSource = () => {
   const [themeSource, setThemeSource] = useReducer(
