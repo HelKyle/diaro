@@ -4,6 +4,7 @@ import { AppContainer as ReactHotAppContainer } from 'react-hot-loader'
 import '@/styles/index.less'
 import App from '@/App'
 import { createHashHistory } from 'history'
+import './lib/theme'
 
 const app = dva({
   history: createHashHistory()
@@ -20,10 +21,5 @@ app.router(({ history }: any) => (
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.documentElement.setAttribute(
-    'data-theme',
-    localStorage.getItem('theme') || ''
-  )
-
   app.start('#root')
 })
